@@ -10,17 +10,17 @@ st.set_page_config(
     layout="centered"
 )
 
-# 2. Uniform, High-Visibility Clinical Theme CSS
+# 2. Masterclass Professional CSS Styling (High-Contrast & Visible Camera Buttons)
 st.markdown("""
     <style>
-    /* Global App Background & Uniform Typography */
+    /* Global App Background & Uniform Dark Navy Text */
     .stApp {
-        background-color: #F8FAFC;
+        background-color: #F1F5F9;
         color: #0F172A;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
     
-    /* Professional Header Banner */
+    /* Professional Navy Header Banner */
     .hero-banner {
         background: linear-gradient(135deg, #0B132B 0%, #1C2541 100%);
         border-radius: 16px;
@@ -45,7 +45,7 @@ st.markdown("""
         margin-bottom: 0;
     }
     
-    /* Uniform White Card Containers */
+    /* Professional White Card Containers */
     .app-card {
         background-color: #FFFFFF;
         border-radius: 16px;
@@ -55,7 +55,7 @@ st.markdown("""
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
     }
     
-    /* Uniform Step Header */
+    /* Step Header Badges */
     .step-badge-row {
         display: flex;
         align-items: center;
@@ -84,11 +84,27 @@ st.markdown("""
         margin-top: 0;
     }
 
-    /* Uniform Widget Labels */
-    .stSelectbox label, .stFileUploader label, .stRadio label, p, span {
+    /* Force All Widget Labels to be Bold and Dark */
+    .stSelectbox label, .stFileUploader label, p, span {
         font-weight: 700 !important;
         color: #0F172A !important;
         font-size: 14px !important;
+    }
+
+    /* Force Streamlit Camera Input & Action Buttons to be Massive, Bold & High-Contrast */
+    .stButton>button, .stCameraInput button {
+        background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%) !important;
+        color: #FFFFFF !important;
+        font-weight: 900 !important;
+        border-radius: 14px !important;
+        border: none !important;
+        padding: 14px 24px !important;
+        font-size: 16px !important;
+        box-shadow: 0 6px 16px rgba(2, 132, 199, 0.35) !important;
+        width: 100%;
+    }
+    .stButton>button:hover, .stCameraInput button:hover {
+        background: linear-gradient(135deg, #0369A1 0%, #075985 100%) !important;
     }
 
     /* Dimension & Meta Pills */
@@ -101,22 +117,6 @@ st.markdown("""
         font-size: 13px;
         font-weight: 700;
         color: #0F172A;
-    }
-    
-    /* Uniform Action Button */
-    .stButton>button {
-        background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%) !important;
-        color: #FFFFFF !important;
-        font-weight: 800 !important;
-        border-radius: 14px !important;
-        border: none !important;
-        padding: 14px 24px !important;
-        font-size: 16px !important;
-        box-shadow: 0 6px 16px rgba(2, 132, 199, 0.35) !important;
-        width: 100%;
-    }
-    .stButton>button:hover {
-        background: linear-gradient(135deg, #0369A1 0%, #075985 100%) !important;
     }
     
     /* Clinical Results Boxes */
@@ -195,8 +195,8 @@ with tab_upload:
 
 with tab_camera:
     st.markdown("""
-        <div style='background-color: #E0F2FE; border: 1px solid #BAE6FD; border-radius: 10px; padding: 10px 14px; margin-bottom: 10px;'>
-            <p style='color: #0369A1; font-size: 13px; font-weight: 700; margin: 0;'>💡 Field Tip: Ensure your mobile browser is set to use your phone's <b>Rear / Back Camera</b> to capture through the microscope eyepiece.</p>
+        <div style='background-color: #E0F2FE; border: 2px solid #38BDF8; border-radius: 12px; padding: 12px 16px; margin-bottom: 12px;'>
+            <p style='color: #0369A1; font-size: 13px; font-weight: 800; margin: 0;'>💡 Field Instruction: Please ensure your phone is set to use the <b>Rear / Back Camera</b> to capture through the microscope eyepiece. Click the prominent <b>'Take Photo'</b> button below once aligned.</p>
         </div>
     """, unsafe_allow_html=True)
     cam_file = st.camera_input("Snap picture through microscope eyepiece (Rear Camera)")
