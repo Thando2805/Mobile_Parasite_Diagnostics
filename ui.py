@@ -10,12 +10,12 @@ st.set_page_config(
     layout="centered"
 )
 
-# 2. Masterclass Professional CSS Styling (High-Contrast & Visible Camera Buttons)
+# 2. Professional Masterclass CSS Styling (High-Contrast & Visible Upload/Camera Buttons)
 st.markdown("""
     <style>
     /* Global App Background & Uniform Dark Navy Text */
     .stApp {
-        background-color: #F1F5F9;
+        background-color: #F8FAFC;
         color: #0F172A;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
@@ -91,7 +91,7 @@ st.markdown("""
         font-size: 14px !important;
     }
 
-    /* Force Streamlit Camera Input & Action Buttons to be Massive, Bold & High-Contrast */
+    /* Force Action Buttons & Camera 'Take Photo' Button to be Massive, Bold & High-Contrast */
     .stButton>button, .stCameraInput button {
         background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%) !important;
         color: #FFFFFF !important;
@@ -105,6 +105,17 @@ st.markdown("""
     }
     .stButton>button:hover, .stCameraInput button:hover {
         background: linear-gradient(135deg, #0369A1 0%, #075985 100%) !important;
+    }
+
+    /* Clean, Visible File Uploader Box */
+    div[data-testid="stFileUploader"] {
+        border: 2px dashed #0284C7;
+        border-radius: 14px;
+        padding: 16px;
+        background-color: #F8FAFC;
+    }
+    div[data-testid="stFileUploader"] section {
+        padding: 10px;
     }
 
     /* Dimension & Meta Pills */
@@ -184,11 +195,12 @@ domain = st.selectbox(
 st.write("")
 st.markdown("<p style='font-size: 14px; font-weight: 700; color: #0F172A; margin-bottom: 8px;'>Image Acquisition Method:</p>", unsafe_allow_html=True)
 
-tab_upload, tab_camera = st.tabs(["📁 Upload Image File", "📷 Live Rear Camera"])
+tab_upload, tab_camera = st.tabs(["📁 Upload Image File", "📷 Rear Camera (Eyepiece)"])
 
 uploaded_file = None
 
 with tab_upload:
+    st.markdown("<p style='font-size: 13px; color: #334155; font-weight: 600; margin-bottom: 6px;'>Drag and drop or browse high-resolution microscope slide captures:</p>", unsafe_allow_html=True)
     up_file = st.file_uploader("Upload microscope slide image (PNG, JPG)", type=["png", "jpg", "jpeg"])
     if up_file is not None:
         uploaded_file = up_file
@@ -196,7 +208,7 @@ with tab_upload:
 with tab_camera:
     st.markdown("""
         <div style='background-color: #E0F2FE; border: 2px solid #38BDF8; border-radius: 12px; padding: 12px 16px; margin-bottom: 12px;'>
-            <p style='color: #0369A1; font-size: 13px; font-weight: 800; margin: 0;'>💡 Field Instruction: Please ensure your phone is set to use the <b>Rear / Back Camera</b> to capture through the microscope eyepiece. Click the prominent <b>'Take Photo'</b> button below once aligned.</p>
+            <p style='color: #0369A1; font-size: 13px; font-weight: 800; margin: 0;'>📷 <b>Rear Camera Mode Only:</b> Position your phone's <b>Rear / Main Camera</b> directly over the microscope eyepiece. Click the prominent <b>'Take Photo'</b> button below when focused.</p>
         </div>
     """, unsafe_allow_html=True)
     cam_file = st.camera_input("Snap picture through microscope eyepiece (Rear Camera)")
