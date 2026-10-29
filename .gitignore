@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.env
+data/raw/
+data/processed/
+app/models_weights/*.pt
+.vscode/
+.DS_Store
