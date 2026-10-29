@@ -10,7 +10,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# 2. Professional Masterclass CSS Styling (High-Contrast & Visible Upload/Camera Buttons)
+# 2. Professional Masterclass CSS Styling (Pure Light Theme & Clean Upload Box)
 st.markdown("""
     <style>
     /* Global App Background & Uniform Dark Navy Text */
@@ -107,15 +107,23 @@ st.markdown("""
         background: linear-gradient(135deg, #0369A1 0%, #075985 100%) !important;
     }
 
-    /* Clean, Visible File Uploader Box */
+    /* Pristine Clean White File Uploader Box (Zero Black/Dark Theme) */
     div[data-testid="stFileUploader"] {
-        border: 2px dashed #0284C7;
-        border-radius: 14px;
-        padding: 16px;
-        background-color: #F8FAFC;
+        background-color: #FFFFFF !important;
+        border: 2px dashed #0284C7 !important;
+        border-radius: 14px !important;
+        padding: 18px !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
     }
     div[data-testid="stFileUploader"] section {
-        padding: 10px;
+        background-color: #F8FAFC !important;
+        border-radius: 10px !important;
+        padding: 14px !important;
+        border: 1px solid #E2E8F0 !important;
+    }
+    div[data-testid="stFileUploader"] span, div[data-testid="stFileUploader"] small, div[data-testid="stFileUploader"] div {
+        color: #0F172A !important;
+        font-weight: 700 !important;
     }
 
     /* Dimension & Meta Pills */
@@ -259,6 +267,7 @@ if uploaded_file is not None:
             image.save(img_byte_arr, format="JPEG")
             img_byte_arr.seek(0)
             try:
+                # Live Render Backend URL
                 backend_url = "https://mobile-parasite-diagnostics.onrender.com/api/v1/predict"
                 files = {"file": ("slide.jpg", img_byte_arr, "image/jpeg")}
                 data = {"domain": domain}
