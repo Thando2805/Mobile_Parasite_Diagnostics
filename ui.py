@@ -254,7 +254,7 @@ if uploaded_file is not None:
             img_byte_arr.seek(0)
             
             try:
-                backend_url = "http://localhost:8000/api/v1/predict"
+                backend_url = "https://mobile-parasite-diagnostics.onrender.com/api/v1/predict"
                 files = {"file": ("slide.jpg", img_byte_arr, "image/jpeg")}
                 data = {"domain": domain}
                 
