@@ -163,12 +163,12 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-# Initialize session state for mode toggling
+# Initialize session state
 if 'acquisition_mode' not in st.session_state:
     st.session_state['acquisition_mode'] = 'Upload Image'
 
 # ==========================================
-# STEP 01: UNIFIED SPECIMEN CONFIGURATION CARD
+# STEP 01: SPECIMEN CONFIGURATION CARD
 # ==========================================
 st.markdown("""
     <div class="master-card">
@@ -195,13 +195,17 @@ col_m1, col_m2 = st.columns(2)
 with col_m1:
     if st.button("📁 Upload File", use_container_width=True):
         st.session_state['acquisition_mode'] = 'Upload Image'
+        if 'master_result' in st.session_state:
+            del st.session_state['master_result']
 with col_m2:
     if st.button("📷 Live Camera", use_container_width=True):
         st.session_state['acquisition_mode'] = 'Use Camera'
+        if 'master_result' in st.session_state:
+            del st.session_state['master_result']
 
 uploaded_file = None
-
 st.write("")
+
 if st.session_state['acquisition_mode'] == 'Upload Image':
     uploaded_file = st.file_uploader(
         "Upload microscope slide image",
@@ -210,17 +214,17 @@ if st.session_state['acquisition_mode'] == 'Upload Image':
 else:
     uploaded_file = st.camera_input("Snap picture through microscope eyepiece")
 
-st.markdown("</div>", unsafe_allow_html=True) # End Master Card 1
+st.markdown("</div>", unsafe_allow_html=True)
 
 # ==========================================
-# STEP 02: UNIFIED SPECIMEN PREVIEW CARD
+# STEP 02: SPECIMEN PREVIEW & EXECUTION
 # ==========================================
 if uploaded_file is not None:
     st.markdown("""
         <div class="master-card">
             <div class="step-header-row">
                 <span class="step-number">02</span>
-                <h3 class="step-title">Specimen Preview</h3>
+                <h3 class="step-title">Specimen Preview & Scan</h3>
             </div>
             <p class="step-desc">Inspect visual integrity before executing tensor inference.</p>
     """, unsafe_allow_html=True)
@@ -248,7 +252,7 @@ if uploaded_file is not None:
     st.write("")
     
     if st.button("🚀 Run AI Diagnostic Scan", use_container_width=True):
-        with st.spinner("Executing ONNX neural pipeline inference..."):
+        with st.spinner("Waking cloud server & executing ONNX tensor inference (First request may take ~30s if asleep)..."):
             img_byte_arr = io.BytesIO()
             image.save(img_byte_arr, format="JPEG")
             img_byte_arr.seek(0)
@@ -258,19 +262,21 @@ if uploaded_file is not None:
                 files = {"file": ("slide.jpg", img_byte_arr, "image/jpeg")}
                 data = {"domain": domain}
                 
-                response = requests.post(backend_url, files=files, data=data)
+                response = requests.post(backend_url, files=files, data=data, timeout=60)
                 
                 if response.status_code == 200:
                     st.session_state['master_result'] = response.json()
                 else:
-                    st.error(f"Server Error: {response.text}")
+                    st.error(f"Server Error [{response.status_code}]: {response.text}")
+            except requests.exceptions.Timeout:
+                st.error("⚠️ Request timed out. The server might be waking up from sleep—please click 'Run AI Diagnostic Scan' again.")
             except requests.exceptions.ConnectionError:
-                st.error("⚠️ Backend connection failed. Ensure FastAPI is running on port 8000.")
+                st.error("⚠️ Backend connection failed. Check your internet connection.")
 
-    st.markdown("</div>", unsafe_allow_html=True) # End Master Card 2
+    st.markdown("</div>", unsafe_allow_html=True)
 
 # ==========================================
-# STEP 03: UNIFIED ANALYSIS RESULTS CARD
+# STEP 03: ANALYSIS RESULTS REPORT
 # ==========================================
 if 'master_result' in st.session_state:
     res = st.session_state['master_result']
@@ -314,4 +320,9 @@ if 'master_result' in st.session_state:
             st.markdown(f"<strong style='color: #0F172A;'>{name}</strong>: `{prob * 100:.2f}%`", unsafe_allow_html=True)
             st.progress(float(prob))
             
-    st.markdown("</div>", unsafe_allow_html=True) # End Master Card 3
+    st.write("")
+    if st.button("🔄 Clear / Scan New Slide", use_container_width=True):
+        del st.session_state['master_result']
+        st.rerun()
+            
+    st.markdown("</div>", unsafe_allow_html=True)
