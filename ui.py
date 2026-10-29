@@ -10,23 +10,23 @@ st.set_page_config(
     layout="centered"
 )
 
-# 2. Expert Designer CSS Styling (Unified Cards & High Contrast)
+# 2. High-Contrast Professional CSS Styling
 st.markdown("""
     <style>
-    /* Global App Background */
+    /* Global App Background & Text */
     .stApp {
         background-color: #F8FAFC;
         color: #0F172A;
     }
     
-    /* Executive Header Banner */
+    /* Professional Navy Header Banner */
     .hero-banner {
-        background: linear-gradient(135deg, #0A192F 0%, #1E3A8A 100%);
-        border-radius: 20px;
-        padding: 28px 24px;
+        background: linear-gradient(135deg, #0B132B 0%, #1C2541 100%);
+        border-radius: 16px;
+        padding: 26px 24px;
         color: #FFFFFF;
         margin-bottom: 24px;
-        box-shadow: 0 10px 30px rgba(10, 25, 47, 0.15);
+        box-shadow: 0 8px 24px rgba(11, 19, 43, 0.2);
         border: 1px solid #334155;
     }
     .hero-title {
@@ -44,22 +44,22 @@ st.markdown("""
         margin-bottom: 0;
     }
     
-    /* Unified Master Card Container */
-    .master-card {
+    /* Bold Crisp Card Containers */
+    .app-card {
         background-color: #FFFFFF;
-        border-radius: 20px;
-        padding: 26px;
-        margin-bottom: 24px;
-        border: 1px solid #E2E8F0;
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        border-radius: 16px;
+        padding: 24px;
+        margin-bottom: 20px;
+        border: 2px solid #CBD5E1;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
     }
     
-    /* Step Header inside Cards */
-    .step-header-row {
+    /* Step Badge Headers */
+    .step-badge-row {
         display: flex;
         align-items: center;
         gap: 12px;
-        margin-bottom: 6px;
+        margin-bottom: 8px;
     }
     .step-number {
         background-color: #0284C7;
@@ -71,35 +71,30 @@ st.markdown("""
     }
     .step-title {
         font-weight: 800;
-        font-size: 19px;
+        font-size: 18px;
         color: #0F172A !important;
         margin: 0;
     }
     .step-desc {
         font-size: 14px;
         font-weight: 600;
-        color: #475569 !important;
-        margin-bottom: 20px;
+        color: #334155 !important;
+        margin-bottom: 16px;
         margin-top: 0;
-        border-bottom: 1px solid #F1F5F9;
-        padding-bottom: 14px;
     }
 
-    /* Form Labels */
-    .custom-label {
-        font-size: 14px;
-        font-weight: 700;
+    /* Force Streamlit Labels to be Bold and Dark */
+    .stSelectbox label, .stFileUploader label {
+        font-weight: 700 !important;
         color: #0F172A !important;
-        margin-bottom: 6px;
-        margin-top: 12px;
-        display: block;
+        font-size: 15px !important;
     }
 
     /* Dimension Pills */
     .meta-pill {
-        background-color: #F8FAFC;
-        border: 2px solid #E2E8F0;
-        border-radius: 14px;
+        background-color: #F1F5F9;
+        border: 2px solid #CBD5E1;
+        border-radius: 12px;
         padding: 14px;
         text-align: center;
         font-size: 13px;
@@ -116,19 +111,19 @@ st.markdown("""
         border: none !important;
         padding: 14px 24px !important;
         font-size: 16px !important;
-        box-shadow: 0 6px 20px rgba(2, 132, 199, 0.3) !important;
+        box-shadow: 0 6px 16px rgba(2, 132, 199, 0.35) !important;
         width: 100%;
     }
     .stButton>button:hover {
         background: linear-gradient(135deg, #0369A1 0%, #075985 100%) !important;
     }
     
-    /* Diagnostic Result Boxes */
+    /* Clinical Results Boxes */
     .pathogen-box {
         background-color: #F0FDF4;
         border: 2px solid #86EFAC;
-        border-radius: 16px;
-        padding: 20px;
+        border-radius: 14px;
+        padding: 18px 20px;
     }
     .pathogen-label {
         font-size: 12px;
@@ -146,10 +141,10 @@ st.markdown("""
     }
     
     .confidence-box {
-        background-color: #F8FAFC;
-        border: 2px solid #E2E8F0;
-        border-radius: 16px;
-        padding: 20px;
+        background-color: #F1F5F9;
+        border: 2px solid #CBD5E1;
+        border-radius: 14px;
+        padding: 18px 20px;
         text-align: center;
     }
     </style>
@@ -163,16 +158,12 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-# Initialize session state
-if 'acquisition_mode' not in st.session_state:
-    st.session_state['acquisition_mode'] = 'Upload Image'
-
 # ==========================================
 # STEP 01: SPECIMEN CONFIGURATION CARD
 # ==========================================
 st.markdown("""
-    <div class="master-card">
-        <div class="step-header-row">
+    <div class="app-card">
+        <div class="step-badge-row">
             <span class="step-number">01</span>
             <h3 class="step-title">Specimen Configuration</h3>
         </div>
@@ -189,30 +180,24 @@ domain = st.selectbox(
     ]
 )
 
-st.markdown("<span class='custom-label'>Image Acquisition Method:</span>", unsafe_allow_html=True)
+st.write("")
+st.markdown("<p style='font-size: 15px; font-weight: 700; color: #0F172A; margin-bottom: 8px;'>Image Acquisition Method:</p>", unsafe_allow_html=True)
 
-col_m1, col_m2 = st.columns(2)
-with col_m1:
-    if st.button("📁 Upload File", use_container_width=True):
-        st.session_state['acquisition_mode'] = 'Upload Image'
-        if 'master_result' in st.session_state:
-            del st.session_state['master_result']
-with col_m2:
-    if st.button("📷 Live Camera", use_container_width=True):
-        st.session_state['acquisition_mode'] = 'Use Camera'
-        if 'master_result' in st.session_state:
-            del st.session_state['master_result']
+# Native Tabs make the Camera input and Take Photo button permanently and cleanly visible!
+tab_upload, tab_camera = st.tabs(["📁 Upload Image File", "📷 Live Eyepiece Camera"])
 
 uploaded_file = None
-st.write("")
 
-if st.session_state['acquisition_mode'] == 'Upload Image':
-    uploaded_file = st.file_uploader(
-        "Upload microscope slide image",
-        type=["png", "jpg", "jpeg"]
-    )
-else:
-    uploaded_file = st.camera_input("Snap picture through microscope eyepiece")
+with tab_upload:
+    up_file = st.file_uploader("Upload microscope slide image (PNG, JPG)", type=["png", "jpg", "jpeg"])
+    if up_file is not None:
+        uploaded_file = up_file
+
+with tab_camera:
+    st.markdown("<p style='font-size: 13px; color: #334155; font-weight: 600; margin-bottom: 8px;'>Align your smartphone camera with the microscope eyepiece and tap <b>'Take Photo'</b> below:</p>", unsafe_allow_html=True)
+    cam_file = st.camera_input("Snap picture through microscope eyepiece")
+    if cam_file is not None:
+        uploaded_file = cam_file
 
 st.markdown("</div>", unsafe_allow_html=True)
 
@@ -221,10 +206,10 @@ st.markdown("</div>", unsafe_allow_html=True)
 # ==========================================
 if uploaded_file is not None:
     st.markdown("""
-        <div class="master-card">
-            <div class="step-header-row">
+        <div class="app-card">
+            <div class="step-badge-row">
                 <span class="step-number">02</span>
-                <h3 class="step-title">Specimen Preview & Scan</h3>
+                <h3 class="step-title">Specimen Preview</h3>
             </div>
             <p class="step-desc">Inspect visual integrity before executing tensor inference.</p>
     """, unsafe_allow_html=True)
@@ -251,25 +236,23 @@ if uploaded_file is not None:
     st.write("")
     st.write("")
     
-    if st.button("🚀 Run AI Diagnostic Scan", use_container_width=True):
-        with st.spinner("Waking cloud server & executing ONNX tensor inference (First request may take ~30s if asleep)..."):
+    if st.button("🚀 Run AI Diagnostic Scan", key="btn_scan"):
+        with st.spinner("Waking cloud model & executing ONNX inference (First request may take ~30s if asleep)..."):
             img_byte_arr = io.BytesIO()
             image.save(img_byte_arr, format="JPEG")
             img_byte_arr.seek(0)
-            
             try:
                 backend_url = "https://mobile-parasite-diagnostics.onrender.com/api/v1/predict"
                 files = {"file": ("slide.jpg", img_byte_arr, "image/jpeg")}
                 data = {"domain": domain}
                 
                 response = requests.post(backend_url, files=files, data=data, timeout=60)
-                
                 if response.status_code == 200:
                     st.session_state['master_result'] = response.json()
                 else:
                     st.error(f"Server Error [{response.status_code}]: {response.text}")
             except requests.exceptions.Timeout:
-                st.error("⚠️ Request timed out. The server might be waking up from sleep—please click 'Run AI Diagnostic Scan' again.")
+                st.error("⚠️ Request timed out. The server was sleeping—please click 'Run AI Diagnostic Scan' again.")
             except requests.exceptions.ConnectionError:
                 st.error("⚠️ Backend connection failed. Check your internet connection.")
 
@@ -284,8 +267,8 @@ if 'master_result' in st.session_state:
     conf_val = res.get('confidence', 0.0) * 100
     
     st.markdown("""
-        <div class="master-card">
-            <div class="step-header-row">
+        <div class="app-card">
+            <div class="step-badge-row">
                 <span class="step-number" style="background-color: #059669;">03</span>
                 <h3 class="step-title">Diagnostic Report</h3>
             </div>
@@ -293,7 +276,6 @@ if 'master_result' in st.session_state:
     """, unsafe_allow_html=True)
     
     r_col1, r_col2 = st.columns([1.6, 1])
-    
     with r_col1:
         st.markdown(f"""
             <div class="pathogen-box">
@@ -301,12 +283,11 @@ if 'master_result' in st.session_state:
                 <p class="pathogen-name">{parasite_name}</p>
             </div>
         """, unsafe_allow_html=True)
-        
     with r_col2:
         st.markdown(f"""
             <div class="confidence-box">
-                <p class="pathogen-label" style="color: #334155;">Confidence Level</p>
-                <p style="font-size: 22px; font-weight: 900; color: #0284C7; margin: 2px 0 0 0;">{conf_val:.2f}%</p>
+                <p class="pathogen-label" style="color: #475569;">Confidence Level</p>
+                <p style="font-size: 20px; font-weight: 800; color: #0284C7; margin: 2px 0 0 0;">{conf_val:.2f} %</p>
             </div>
         """, unsafe_allow_html=True)
         
@@ -321,7 +302,7 @@ if 'master_result' in st.session_state:
             st.progress(float(prob))
             
     st.write("")
-    if st.button("🔄 Clear / Scan New Slide", use_container_width=True):
+    if st.button("🔄 Clear / Scan New Slide", key="btn_clear"):
         del st.session_state['master_result']
         st.rerun()
             
