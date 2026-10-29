@@ -10,51 +10,50 @@ st.set_page_config(
     layout="centered"
 )
 
-# 2. High-Contrast Professional CSS Styling
+# 2. Ultra-Visible Bright Clinical Theme (Zero Dark Elements)
 st.markdown("""
     <style>
-    /* Global App Background & Text */
+    /* Force Bright Light Background */
     .stApp {
         background-color: #F8FAFC;
         color: #0F172A;
     }
     
-    /* Professional Navy Header Banner */
+    /* Clean Bright Header Banner */
     .hero-banner {
-        background: linear-gradient(135deg, #0B132B 0%, #1C2541 100%);
+        background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%);
         border-radius: 16px;
         padding: 26px 24px;
         color: #FFFFFF;
         margin-bottom: 24px;
-        box-shadow: 0 8px 24px rgba(11, 19, 43, 0.2);
-        border: 1px solid #334155;
+        box-shadow: 0 8px 24px rgba(2, 132, 199, 0.25);
     }
     .hero-title {
         font-size: 26px;
-        font-weight: 800;
+        font-weight: 900;
         color: #FFFFFF !important;
         margin: 0;
         letter-spacing: -0.5px;
     }
     .hero-subtitle {
         font-size: 14px;
-        font-weight: 600;
-        color: #94A3B8 !important;
+        font-weight: 700;
+        color: #E0F2FE !important;
         margin-top: 6px;
         margin-bottom: 0;
     }
     
-    /* Bold Crisp Card Containers */
+    /* Bright White Card Containers */
     .app-card {
         background-color: #FFFFFF;
         border-radius: 16px;
         padding: 24px;
         margin-bottom: 20px;
-        border: 2px solid #CBD5E1;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        border: 2px solid #E2E8F0;
+        box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
     }
     
-    /* Step Badge Headers */
+    /* Step Headers */
     .step-badge-row {
         display: flex;
         align-items: center;
@@ -64,54 +63,53 @@ st.markdown("""
     .step-number {
         background-color: #0284C7;
         color: #FFFFFF;
-        font-weight: 800;
-        font-size: 13px;
-        padding: 5px 12px;
+        font-weight: 900;
+        font-size: 14px;
+        padding: 6px 14px;
         border-radius: 20px;
     }
     .step-title {
-        font-weight: 800;
-        font-size: 18px;
+        font-weight: 900;
+        font-size: 19px;
         color: #0F172A !important;
         margin: 0;
     }
     .step-desc {
         font-size: 14px;
-        font-weight: 600;
-        color: #334155 !important;
+        font-weight: 700;
+        color: #475569 !important;
         margin-bottom: 16px;
         margin-top: 0;
     }
 
-    /* Force Streamlit Labels to be Bold and Dark */
-    .stSelectbox label, .stFileUploader label {
-        font-weight: 700 !important;
+    /* Force All Widget Labels to be Dark, Bold, and Fully Visible */
+    .stSelectbox label, .stFileUploader label, .stRadio label, p, span {
+        font-weight: 800 !important;
         color: #0F172A !important;
-        font-size: 15px !important;
     }
 
-    /* Dimension Pills */
+    /* Dimension & Meta Pills */
     .meta-pill {
         background-color: #F1F5F9;
         border: 2px solid #CBD5E1;
         border-radius: 12px;
         padding: 14px;
         text-align: center;
-        font-size: 13px;
-        font-weight: 700;
+        font-size: 14px;
+        font-weight: 800;
         color: #0F172A;
     }
     
-    /* Custom Action Button */
+    /* High-Visibility Action Button */
     .stButton>button {
         background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%) !important;
         color: #FFFFFF !important;
-        font-weight: 800 !important;
+        font-weight: 900 !important;
         border-radius: 14px !important;
         border: none !important;
         padding: 14px 24px !important;
         font-size: 16px !important;
-        box-shadow: 0 6px 16px rgba(2, 132, 199, 0.35) !important;
+        box-shadow: 0 6px 20px rgba(2, 132, 199, 0.4) !important;
         width: 100%;
     }
     .stButton>button:hover {
@@ -129,11 +127,11 @@ st.markdown("""
         font-size: 12px;
         color: #166534;
         text-transform: uppercase;
-        font-weight: 800;
+        font-weight: 900;
         margin: 0;
     }
     .pathogen-name {
-        font-size: 20px;
+        font-size: 21px;
         font-weight: 900;
         font-style: italic;
         color: #14532D;
@@ -141,7 +139,7 @@ st.markdown("""
     }
     
     .confidence-box {
-        background-color: #F1F5F9;
+        background-color: #F8FAFC;
         border: 2px solid #CBD5E1;
         border-radius: 14px;
         padding: 18px 20px;
@@ -181,9 +179,8 @@ domain = st.selectbox(
 )
 
 st.write("")
-st.markdown("<p style='font-size: 15px; font-weight: 700; color: #0F172A; margin-bottom: 8px;'>Image Acquisition Method:</p>", unsafe_allow_html=True)
+st.markdown("<p style='font-size: 15px; font-weight: 800; color: #0F172A; margin-bottom: 8px;'>Image Acquisition Method:</p>", unsafe_allow_html=True)
 
-# Native Tabs make the Camera input and Take Photo button permanently and cleanly visible!
 tab_upload, tab_camera = st.tabs(["📁 Upload Image File", "📷 Live Eyepiece Camera"])
 
 uploaded_file = None
@@ -194,7 +191,7 @@ with tab_upload:
         uploaded_file = up_file
 
 with tab_camera:
-    st.markdown("<p style='font-size: 13px; color: #334155; font-weight: 600; margin-bottom: 8px;'>Align your smartphone camera with the microscope eyepiece and tap <b>'Take Photo'</b> below:</p>", unsafe_allow_html=True)
+    st.markdown("<p style='font-size: 14px; color: #0F172A; font-weight: 800; margin-bottom: 8px;'>Align camera with eyepiece and tap <b>'Take Photo'</b> below:</p>", unsafe_allow_html=True)
     cam_file = st.camera_input("Snap picture through microscope eyepiece")
     if cam_file is not None:
         uploaded_file = cam_file
@@ -237,11 +234,12 @@ if uploaded_file is not None:
     st.write("")
     
     if st.button("🚀 Run AI Diagnostic Scan", key="btn_scan"):
-        with st.spinner("Waking cloud model & executing ONNX inference (First request may take ~30s if asleep)..."):
+        with st.spinner("Waking cloud server & executing ONNX tensor inference..."):
             img_byte_arr = io.BytesIO()
             image.save(img_byte_arr, format="JPEG")
             img_byte_arr.seek(0)
             try:
+                # Live Render Backend URL
                 backend_url = "https://mobile-parasite-diagnostics.onrender.com/api/v1/predict"
                 files = {"file": ("slide.jpg", img_byte_arr, "image/jpeg")}
                 data = {"domain": domain}
@@ -287,12 +285,12 @@ if 'master_result' in st.session_state:
         st.markdown(f"""
             <div class="confidence-box">
                 <p class="pathogen-label" style="color: #475569;">Confidence Level</p>
-                <p style="font-size: 20px; font-weight: 800; color: #0284C7; margin: 2px 0 0 0;">{conf_val:.2f} %</p>
+                <p style="font-size: 21px; font-weight: 900; color: #0284C7; margin: 2px 0 0 0;">{conf_val:.2f} %</p>
             </div>
         """, unsafe_allow_html=True)
         
     st.write("")
-    st.markdown("<strong style='color: #0F172A;'>Model Confidence Distribution</strong>", unsafe_allow_html=True)
+    st.markdown("<strong style='color: #0F172A; font-size: 15px;'>Model Confidence Distribution</strong>", unsafe_allow_html=True)
     st.progress(float(res.get('confidence', 0.0)))
     
     with st.expander("🔍 View Detailed Class Probability Breakdown"):
